@@ -1,7 +1,6 @@
 package study.data_jpa;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
@@ -12,7 +11,6 @@ import study.data_jpa.repository.MemberJpaRepository;
 
 import static org.assertj.core.api.Assertions.*;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest
 @Transactional
 public class MemberJpaRepositoryTest {
