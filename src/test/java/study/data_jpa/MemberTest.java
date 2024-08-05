@@ -1,28 +1,27 @@
-package study.data_jpa.entity;
+package study.data_jpa;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import org.assertj.core.api.Assertions;
+import org.aspectj.runtime.reflect.Factory;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
+import study.data_jpa.entity.Member;
+import study.data_jpa.entity.Team;
 
 import java.util.List;
-
-import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Transactional
 @Rollback(false)
-class MemberTest {
+public class MemberTest {
 
     @PersistenceContext
     EntityManager em;
 
     @Test
-    void testEntity(){
+    public void testEntity() {
         Team teamA = new Team("teamA");
         Team teamB = new Team("teamB");
         em.persist(teamA);
@@ -36,15 +35,15 @@ class MemberTest {
         em.persist(member2);
         em.persist(member3);
         em.persist(member4);
-        
+
         em.flush();
         em.clear();
 
-        List<Member> members
-                = em.createQuery("select m from Member m", Member.class).getResultList();
-        for (Member member : members) {
-            System.out.println("member = " + member +" -> " + member.getUsername()+".getTeam() = " + member.getTeam());
+        List<Member> selectMFromMemberM = em.createQuery("select m from Member m join fetch m.team", Member.class)
+                .getResultList();
+        for (Member member : selectMFromMemberM) {
+            System.out.println("member = " + member);
+            System.out.println("member.getTeam() = " + member.getTeam());
         }
     }
-
 }

@@ -12,10 +12,12 @@ import java.util.List;
 @ToString(of = {"id", "name"})
 public class Team {
 
-    @Id @GeneratedValue
-    @Column(name = "team_id")
+    @Id
+    @GeneratedValue
+    @Column(name = "tead_id")
     private Long id;
     private String name;
+
     @OneToMany(mappedBy = "team")
     private List<Member> members = new ArrayList<>();
 
